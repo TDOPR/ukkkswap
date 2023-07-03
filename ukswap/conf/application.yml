@@ -1,0 +1,75 @@
+server:
+  port: 8849
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/ukswap?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: 123456
+      initial-size: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 6000ms
+    jedis:
+      pool:
+        max-active: 1000
+        max-wait: -1ms
+        max-idle: 10
+        min-idle: 5
+
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*.xml
+  typeAliasesPackage: com.uniswap.entity
+  global-config:
+    id-type: 0
+    db-column-underline: true
+  configuration:
+    map-underscore-to-camel-case: true
+eth:
+  enabled: true
+  confirm_block_no: 3
+  main:
+    address: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73"
+  collect:
+    address: "0x726431b5a3FcF8c33EbD0C2698fe71369E5f3193"
+  gas:
+    limit: 50000
+  point:
+    url: https://bsc-dataseed.binance.org
+  swap_pair: "0x3e3d8e1c2D8e82B872d5E113db345bBCC4B8A815"
+  swap_router: "0x10ed43c718714eb63d5aa57b78b54704e256024e"
+  swap_token: "0x55d398326f99059fF775485246999027B3197955"
+
+wallet:
+  aes:
+    key: 1!q@i#q$i%lo^ia7239(*^224b&u*(;
+
+logging:
+  config: conf/logback-spring.xml
+
+#基础token
+token:
+  #web3服务地址
+  web3ServiceUrl: https://bsc-testnet.public.blastapi.io
+  #钱包地址
+  web3Wallet: 11f88eb3a9b868670c01a5582652ed69437479133d226f33c6117f9a3f53b180
+  #获取路径的金额
+  serverUrl: https://bsc.blockpi.network/v1/rpc/public
+  #基础token
+  baseList:
+  - '0x6c9Ed5Ec2BBE6F639633B7a951ba4dfabD508619'
+  - '0xB61190Aba60a8FA7Ab2fDD99E81404c87AC79fDd'
+  - '0xa473E8F31A01bb4D0C5AE13deD23587Fd9119EF2'
+  - '0x35Afb07702A4BdFDFDf250Fc8DE7ac521EF8A2Fa'
+  - '0x3C551FE50Bf86E24fcD6286a8d2C97964e57513a'

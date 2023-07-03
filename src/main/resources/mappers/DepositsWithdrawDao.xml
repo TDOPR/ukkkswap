@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uniswap.mapper.DepositWithdrawDao">
+    <resultMap type="com.uniswap.entity.DepositWithdrawEntity" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="tokenAddress" column="token_address"/>
+        <result property="amount" column="amount"/>
+        <result property="decimals" column="decimals"/>
+        <result property="symbol" column="symbol"/>
+        <result property="date" column="date"/>
+        <result property="eventName" column="event_name"/>
+        <result property="creatTime" column="creat_time"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_address,token_address,amount,decimals, symbol,date, event_name, creat_time
+    </sql>
+        <select id="getDepositWithdrawInfo" resultType="com.uniswap.entity.vo.DepositWithdrawVO">
+            SELECT
+                <include refid="Base_Column_List"/>
+            FROM
+                deposit_withdraw_info a
+            WHERE a.user_address = #{userAddress}
+            ORDER BY a.date
+            DESC
+        </select>
+        <select id="getDepositWithdrawInfoBsc" resultType="com.uniswap.entity.vo.DepositWithdrawVO">
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM
+            deposit_withdraw_info_bsc a
+            WHERE a.user_address = #{userAddress}
+            ORDER BY a.date
+            DESC
+            LIMIT 0,30
+        </select>
+</mapper>

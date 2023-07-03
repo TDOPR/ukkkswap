@@ -1,0 +1,104 @@
+server:
+  port: 8849
+  servlet:
+    context-path: /api
+spring:
+  profiles:
+    # dev=测试  prod=正式
+    active: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:      # ????????
+    timeout: 6000ms  # ??????????
+    jedis:
+      pool:
+        max-active: 1000  # ????????????????????
+        max-wait: -1ms      # ???????????????????????
+        max-idle: 10      # ???????????
+        min-idle: 5       # ???????????
+  batch:
+    job:
+      enabled: false
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*.xml
+  typeAliasesPackage: com.uniswap.entity
+  global-config:
+    id-type: 0
+    db-column-underline: true
+  configuration:
+    # ??????????????:???????Java???????????
+    map-underscore-to-camel-case: true
+eth:
+  token_list_path: C:\Users\Administrator\Desktop\tokenList.json
+
+logging:
+  config: classpath:logback-spring.xml
+
+
+
+#基础token
+token:
+#  #ETH Router地址
+#  routerEthAddress: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'
+  #Goerli Router地址
+  routerEthAddress: '0x6D8Da1792E6EC1F7B5F2152aD5668131e3FBD15E'
+  #Bsctestnet Router地址
+  routerBscAddress: '0x6D8Da1792E6EC1F7B5F2152aD5668131e3FBD15E'
+#  #BSC Router地址
+#  routerBscAddress: '0x10ED43C718714eb63d5aA57B78B54704E256024E'
+  #web3ETH服务地址
+  web3EthServiceUrl: https://ethereum-goerli.publicnode.com
+  #web3BSC服务地址
+  web3BscServiceUrl: https://bsc-testnet.publicnode.com
+  #钱包地址
+  web3Wallet: 11f88eb3a9b868670c01a5582652ed69437479133d226f33c6117f9a3f53b180
+  #基础token
+  basetoken:
+    eth:
+      - '0xB61190Aba60a8FA7Ab2fDD99E81404c87AC79fDd'
+      - '0x6c9Ed5Ec2BBE6F639633B7a951ba4dfabD508619'
+      - '0x3C551FE50Bf86E24fcD6286a8d2C97964e57513a'
+      - '0x35Afb07702A4BdFDFDf250Fc8DE7ac521EF8A2Fa'
+    bsc:
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+
+
+#-------------  测试环境  配置  ---------------
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/swappair?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password:
+
+
+#-------------  正式环境  配置  ---------------
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.2.199:3306/ukswap?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
