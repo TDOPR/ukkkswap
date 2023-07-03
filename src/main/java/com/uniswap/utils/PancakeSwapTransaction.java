@@ -40,6 +40,9 @@ public class PancakeSwapTransaction {
     private static final String defaultGasPriceTheSell = "5000000000";
     private static final String defaultGasLimitTheSell = "516087";
     
+    @Autowired
+    TokenConfig tokenConfig;
+    
     
     private PancakeRouter02 pancakeRouter02;
     
@@ -53,7 +56,7 @@ public class PancakeSwapTransaction {
         this.web3j = web3j;
         this.walletCredentials = walletCredentials;
         TokenConfig tokenConfig = SpringUtil.getBean(TokenConfig.class);
-        if(chainId==1){
+        if(chainId.equals(tokenConfig.getChainIdEth())){
             this.pancakeRouter02 = PancakeRouter02.load(tokenConfig.getRouterEthAddress(), web3j, walletCredentials, new DefaultGasProvider());
     
         }else{
