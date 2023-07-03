@@ -61,6 +61,7 @@ public class WebServerController {
     @Resource
     DepositWithdrawDao depositWithdrawDao;
     
+    
 
     /**
      * 根据TokenA和TokenB计算可行的所有路径，返回最优路径和可换算的最大金额
@@ -68,7 +69,7 @@ public class WebServerController {
     @PostMapping("/getOptimalPath")
     public JsonResult<OptimalPathVO> getOptimalPath(@Valid @RequestBody TokenInfoDTO tokenInfoDTO) throws Exception {
         Integer chainId = Integer.parseInt(tokenInfoDTO.getChainIdX().substring(2), 16);
-        if (chainId.equals(Integer.valueOf(1))||chainId.equals(Integer.valueOf(5))) {
+        if (chainId.equals(tokenConfig.getChainIdEth())) {
             String tokenA = tokenInfoDTO.getTokenA().toLowerCase();
             String tokenB = tokenInfoDTO.getTokenB().toLowerCase();
             TimeInterval timeInterval = new TimeInterval();
@@ -124,7 +125,7 @@ public class WebServerController {
             log.info("tokenA:{} 换 TokenB:{} 共有{}种路径,有效路径数:{} ,原金额={},最优换算路径换算后的金额={},查找耗时:{}ms,请求耗时:{}ms,总耗时:{}ms", tokenInfoDTO.getTokenA(), tokenInfoDTO.getTokenB(), result.size(), len, tokenInfoDTO.getAmount(), max, search, http, (search + http));
             theadPool.shutdown();
             return JsonResult.successResult(new OptimalPathVO(resultMap.get(max), max_bg.toPlainString(), increaseRate + "%"));
-        } else if (chainId.equals(Integer.valueOf(56))||chainId.equals(Integer.valueOf(97))) {
+        } else if (chainId.equals(tokenConfig.getChainIdBsc())) {
             String tokenA = tokenInfoDTO.getTokenA().toLowerCase();
             String tokenB = tokenInfoDTO.getTokenB().toLowerCase();
             TimeInterval timeInterval = new TimeInterval();
@@ -191,7 +192,7 @@ public class WebServerController {
     @PostMapping("/getOptimalPathToB")
     public JsonResult<OptimalPathVO> getOptimalPathToB(@Valid @RequestBody TokenInfoDTO tokenInfoDTO) throws Exception {
         Integer chainId = Integer.parseInt(tokenInfoDTO.getChainIdX().substring(2),16);
-        if(chainId.equals(Integer.valueOf(1))||chainId.equals(Integer.valueOf(5))){
+        if(chainId.equals(tokenConfig.getChainIdEth())){
             String tokenA = tokenInfoDTO.getTokenA().toLowerCase();
             String tokenB = tokenInfoDTO.getTokenB().toLowerCase();
             TimeInterval timeInterval = new TimeInterval();
@@ -246,7 +247,7 @@ public class WebServerController {
             log.info("tokenA:{} 换 TokenB:{} 共有{}种路径,有效路径数:{} ,原金额={},最优换算路径最小金额需要={},查找耗时:{}ms,请求耗时:{}ms,总耗时:{}ms", tokenInfoDTO.getTokenA(), tokenInfoDTO.getTokenB(), result.size(), len, tokenInfoDTO.getAmount(), min, search, http, (search + http));
             theadPool.shutdown();
             return JsonResult.successResult(new OptimalPathVO(resultMap.get(min), min_bg.toPlainString(), increaseRate + "%"));
-        }else if(chainId.equals(Integer.valueOf(56))||chainId.equals(Integer.valueOf(97))){
+        }else if(chainId.equals(tokenConfig.getChainIdBsc())){
             String tokenA = tokenInfoDTO.getTokenA().toLowerCase();
             String tokenB = tokenInfoDTO.getTokenB().toLowerCase();
             TimeInterval timeInterval = new TimeInterval();
@@ -344,7 +345,7 @@ public class WebServerController {
     public JsonResult<PageVO<DepositWithdrawVO>> getDepositWithdrawInfo(@RequestBody PageDTO pageDTO){
         Integer chainId = Integer.parseInt(pageDTO.getChainIdX().substring(2),16);
 //        测试数据
-        if(chainId.equals(Integer.valueOf(5))){
+        if(chainId.equals(tokenConfig.getChainIdEth())){
             Page<DepositWithdrawVO> page = depositWithdrawDao.getDepositWithdrawInfo(pageDTO.getPage(), pageDTO.getUserAddress());
             return JsonResult.successResult(new PageVO<>(page));
         }else{

@@ -86,6 +86,12 @@ web3EthServiceUrl: 以太坊RPC
 #web3BSC服务地址
 web3BscServiceUrl: 币安RPC
 
+#以太坊链id
+chainIdEth: 1(或填入测试链id)
+#BSC链id
+chainIdBsc: 56(或填入测试链id)
+同时配置ChainTypeEnum中ETH BSC对应的值(或填入测试链id)
+
 #钱包地址私钥
 web3Wallet: '钱包地址私钥'
 

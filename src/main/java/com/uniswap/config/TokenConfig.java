@@ -33,6 +33,16 @@ public class TokenConfig {
      * web3Bsc请求地址
      */
     private String web3BscServiceUrl;
+    
+    /**
+     * 以太坊链id
+     */
+    private Integer chainIdEth;
+    
+    /**
+     * BSC链id
+     */
+    private Integer chainIdBsc;
 
     /**
      * 钱包账号
@@ -43,5 +53,13 @@ public class TokenConfig {
      * 获取最短路径
      */
     private String serverUrl;
+    
+    public Integer getChainIdEth() {
+        return chainIdEth;
+    }
+    
+    public Integer getChainIdBsc() {
+        return chainIdBsc;
+    }
 
 }

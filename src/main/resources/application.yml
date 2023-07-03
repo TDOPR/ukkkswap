@@ -62,6 +62,10 @@ token:
   web3EthServiceUrl: https://ethereum-goerli.publicnode.com
   #web3BSC服务地址
   web3BscServiceUrl: https://bsc-testnet.publicnode.com
+  #以太坊链id
+  chainIdEth: 1
+  #BSC链id
+  chainIdBsc: 56
   #钱包地址
   web3Wallet: 11f88eb3a9b868670c01a5582652ed69437479133d226f33c6117f9a3f53b180
   #基础token

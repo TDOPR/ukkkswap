@@ -29,25 +29,25 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM eth_token_coin_config
-        WHERE coin_type = 'EVENT' and chain_id= 1
+        WHERE coin_type = 'EVENT' and chain_id= #{chianId}
     </select>
     <select id="getBscScanDataConfig" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM eth_token_coin_config
-        WHERE coin_type = 'EVENT' and chain_id= 56
+        WHERE coin_type = 'EVENT' and chain_id= #{chianId}
     </select>
     <select id="getEthDepositScanDataConfig" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM eth_token_coin_config
-        WHERE coin_type = 'DEPOSIT' and chain_id = 1
+        WHERE coin_type = 'DEPOSIT' and chain_id = #{chianId}
     </select>
     <select id="getBscDepositScanDataConfig" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM eth_token_coin_config
-        WHERE coin_type = 'DEPOSIT' and chain_id = 56
+        WHERE coin_type = 'DEPOSIT' and chain_id = #{chianId}
     </select>
     <update id="updateActionSeqById">
         UPDATE eth_token_coin_config

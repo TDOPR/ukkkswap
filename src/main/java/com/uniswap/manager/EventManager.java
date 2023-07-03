@@ -1,6 +1,7 @@
 package com.uniswap.manager;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.uniswap.config.TokenConfig;
 import com.uniswap.entity.*;
 import com.uniswap.enums.ChainTypeEnum;
 import com.uniswap.mapper.CoinConfigDao;
@@ -52,9 +53,12 @@ public class EventManager {
     
     @Resource
     private DepositsWithdrawEvmEventBscService depositsWithdrawEvmEventBscService;
+    
+    @Resource
+    private TokenConfig tokenConfig;
 
     public void analyzeEvent() throws Exception {
-        CoinConfigEntity scanDataConfig = coinConfigDao.getScanDataConfig();
+        CoinConfigEntity scanDataConfig = coinConfigDao.getScanDataConfig(tokenConfig.getChainIdEth());
         if (scanDataConfig == null) {
             return;
         }
@@ -70,7 +74,7 @@ public class EventManager {
     }
     
     public void analyzeBscEvent() throws Exception {
-        CoinConfigEntity scanDataConfig = coinConfigDao.getBscScanDataConfig();
+        CoinConfigEntity scanDataConfig = coinConfigDao.getBscScanDataConfig(tokenConfig.getChainIdBsc());
         if (scanDataConfig == null) {
             return;
         }
@@ -86,7 +90,7 @@ public class EventManager {
     }
     
     public void depositWithdrawEth() throws Exception{
-        CoinConfigEntity scanDataConfig = coinConfigDao.getEthDepositScanDataConfig();
+        CoinConfigEntity scanDataConfig = coinConfigDao.getEthDepositScanDataConfig(tokenConfig.getChainIdEth());
         if (scanDataConfig == null) {
             return;
         }
@@ -102,7 +106,7 @@ public class EventManager {
     }
     
     public void depositWithdrawBsc() throws Exception{
-        CoinConfigEntity scanDataConfig = coinConfigDao.getBscDepositScanDataConfig();
+        CoinConfigEntity scanDataConfig = coinConfigDao.getBscDepositScanDataConfig(tokenConfig.getChainIdBsc());
         if (scanDataConfig == null) {
             return;
         }
@@ -120,7 +124,7 @@ public class EventManager {
     private void scanEthBlock(BigInteger oldBlock, BigInteger toBlock) throws Exception{
         QueryWrapper<CoinConfigEntity> coinConfigEntityQueryWrapper = new QueryWrapper<>();
         coinConfigEntityQueryWrapper.eq("coin", "DEPOSIT");
-        coinConfigEntityQueryWrapper.eq("chain_id", ChainTypeEnum.ETH.getChainId());
+        coinConfigEntityQueryWrapper.eq("chain_id", tokenConfig.getChainIdEth());
         CoinConfigEntity eventConfig = coinConfigService.getOne(coinConfigEntityQueryWrapper);
         String eventContract = eventConfig.getContract();
     
@@ -190,7 +194,7 @@ public class EventManager {
     private void scanBscBlock(BigInteger oldBlock, BigInteger toBlock) throws Exception{
         QueryWrapper<CoinConfigEntity> coinConfigEntityQueryWrapper = new QueryWrapper<>();
         coinConfigEntityQueryWrapper.eq("coin", "DEPOSIT");
-        coinConfigEntityQueryWrapper.eq("chain_id", ChainTypeEnum.BSC.getChainId());
+        coinConfigEntityQueryWrapper.eq("chain_id", tokenConfig.getChainIdBsc());
         CoinConfigEntity eventConfig = coinConfigService.getOne(coinConfigEntityQueryWrapper);
         String eventContract = eventConfig.getContract();
         
@@ -260,7 +264,7 @@ public class EventManager {
     private void executeOneBlock(BigInteger oldBlock, BigInteger toBlock) throws Exception {
         QueryWrapper<CoinConfigEntity> coinConfigEntityQueryWrapper = new QueryWrapper<>();
         coinConfigEntityQueryWrapper.eq("coin", "EVENT");
-        coinConfigEntityQueryWrapper.eq("chain_id", ChainTypeEnum.ETH.getChainId());
+        coinConfigEntityQueryWrapper.eq("chain_id", tokenConfig.getChainIdEth());
         CoinConfigEntity eventConfig = coinConfigService.getOne(coinConfigEntityQueryWrapper);
         String eventContract = eventConfig.getContract();
 
@@ -287,7 +291,7 @@ public class EventManager {
                 String token1 = "0x" + topics.get(2).toString().substring(2).replace("000000000000000000000000", "");
                 String pair = "0x" + data.substring(2, 66).replace("000000000000000000000000", "");
                 BigInteger pairLength = new BigInteger(data.substring(67, 130).replaceAll("^(0+)", ""), 16);
-                tradeManager.creatPair(token0, token1, pair, pairLength, ChainTypeEnum.ETH.getChainId());
+                tradeManager.creatPair(token0, token1, pair, pairLength, tokenConfig.getChainIdEth());
 
                 String blockHash = logsLog.getBlockHash();
                 EthBlock.Block ethBlock = erc20WalletHandleService.getBlockByHash(blockHash);
@@ -297,7 +301,7 @@ public class EventManager {
                         .txHash(txHash)
                         .blockNum(new BigInteger(logsLog.getBlockNumber().toString(10)))
                         .createTime(date)
-                        .chainId(ChainTypeEnum.ETH.getChainId())
+                        .chainId(tokenConfig.getChainIdEth())
                         .build();
                 evmEventEntityArrayList.add(ethScanDataEntity);
             }
@@ -310,7 +314,7 @@ public class EventManager {
     private void executeBscOneBlock(BigInteger oldBlock, BigInteger toBlock) throws Exception {
         QueryWrapper<CoinConfigEntity> coinConfigEntityQueryWrapper = new QueryWrapper<>();
         coinConfigEntityQueryWrapper.eq("coin", "EVENT");
-        coinConfigEntityQueryWrapper.eq("chain_id", ChainTypeEnum.BSC.getChainId());
+        coinConfigEntityQueryWrapper.eq("chain_id", tokenConfig.getChainIdBsc());
         CoinConfigEntity eventConfig = coinConfigService.getOne(coinConfigEntityQueryWrapper);
         String eventContract = eventConfig.getContract();
         
@@ -337,7 +341,7 @@ public class EventManager {
                 String token1 = "0x" + topics.get(2).toString().substring(2).replace("000000000000000000000000", "");
                 String pair = "0x" + data.substring(2, 66).replace("000000000000000000000000", "");
                 BigInteger pairLength = new BigInteger(data.substring(67, 130).replaceAll("^(0+)", ""), 16);
-                tradeManager.creatBscPair(token0, token1, pair, pairLength, ChainTypeEnum.BSC.getChainId());
+                tradeManager.creatBscPair(token0, token1, pair, pairLength, tokenConfig.getChainIdBsc());
                 
                 String blockHash = logsLog.getBlockHash();
                 EthBlock.Block bscBlock = erc20BSCWalletHandleService.getBlockByHash(blockHash);
@@ -347,7 +351,7 @@ public class EventManager {
                         .txHash(txHash)
                         .blockNum(new BigInteger(logsLog.getBlockNumber().toString(10)))
                         .createTime(date)
-                        .chainId(ChainTypeEnum.BSC.getChainId())
+                        .chainId(tokenConfig.getChainIdBsc())
                         .build();
                 evmEventEntityBscArrayList.add(bscScanDataEntity);
             }

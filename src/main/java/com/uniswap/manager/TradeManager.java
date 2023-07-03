@@ -1,5 +1,6 @@
 package com.uniswap.manager;
 
+import com.uniswap.config.TokenConfig;
 import com.uniswap.entity.DepositWithdrawEntity;
 import com.uniswap.entity.DepositWithdrawBscEntity;
 import com.uniswap.entity.PairBscEntity;
@@ -33,6 +34,9 @@ public class TradeManager {
     
     @Resource
     private PairBscService pairBscService;
+    
+    @Resource
+    private TokenConfig tokenConfig;
 
     public void creatPair(String token0, String token1, String pair, BigInteger pairLength, Integer chainId) {
         PairEntity pairEntity = PairEntity.builder()
@@ -67,7 +71,7 @@ public class TradeManager {
                 .symbol(symbol)
                 .date(date)
                 .eventName(eventName)
-                .chainId(ChainTypeEnum.ETH.getChainId())
+                .chainId(tokenConfig.getChainIdEth())
                 .creatTime(new Date())
                 .build();
         depositWithdrawService.save(depositWithdrawEntity);
@@ -80,7 +84,7 @@ public class TradeManager {
                 .amount(amount)
                 .date(date)
                 .eventName(eventName)
-                .chainId(ChainTypeEnum.BSC.getChainId())
+                .chainId(tokenConfig.getChainIdEth())
                 .creatTime(new Date())
                 .build();
         depositWithdrawBscService.save(depositWithdrawBscEntity);
