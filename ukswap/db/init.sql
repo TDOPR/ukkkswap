@@ -177,7 +177,7 @@ FOREIGN_KEY_CHECKS = 1;
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 30/06/2023 18:16:47
+ Date: 04/07/2023 11:27:48
 */
 
 SET NAMES utf8mb4;
@@ -208,10 +208,27 @@ CREATE TABLE `eth_token_coin_config`
     `create_time`     datetime(0) NULL DEFAULT NULL,
     `update_time`     datetime(0) NULL DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of eth_token_coin_config
+-- ----------------------------
+INSERT INTO `eth_token_coin_config`
+VALUES (1, 'EVENT', NULL, 'EVENT', '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73', NULL, NULL, NULL, NULL, NULL, NULL,
+        13414737, 56, 'E', NULL, NULL, '2023-07-04 11:26:54');
+INSERT INTO `eth_token_coin_config`
+VALUES (2, 'EVENT', NULL, 'EVENT', '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', NULL, NULL, NULL, NULL, NULL, NULL,
+        11195851, 1, 'E', NULL, NULL, '2023-07-04 11:27:05');
+INSERT INTO `eth_token_coin_config`
+VALUES (3, 'DEPOSIT', NULL, 'DEPOSIT', '0xa52767585F6dF00dCc64763CD101FC5cc76Bee6d', NULL, NULL, NULL, NULL, NULL, NULL,
+        14435851, 1, 'E', NULL, NULL, '2023-07-04 11:27:47');
+INSERT INTO `eth_token_coin_config`
+VALUES (4, 'DEPOSIT', NULL, 'DEPOSIT', '0x42B069e8Fdde7bF5F7709c0B7E6197B951CCF837', NULL, NULL, NULL, NULL, NULL, NULL,
+        29657702, 56, 'E', NULL, NULL, '2023-07-04 11:27:46');
 
 SET
 FOREIGN_KEY_CHECKS = 1;
+
 
 /*
  Navicat Premium Data Transfer
