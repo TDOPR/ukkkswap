@@ -341,7 +341,7 @@ public class EventManager {
                 String token1 = "0x" + topics.get(2).toString().substring(2).replace("000000000000000000000000", "");
                 String pair = "0x" + data.substring(2, 66).replace("000000000000000000000000", "");
                 BigInteger pairLength = new BigInteger(data.substring(67, 130).replaceAll("^(0+)", ""), 16);
-                tradeManager.creatPair(token0, token1, pair, pairLength, tokenConfig.getChainIdBsc());
+                tradeManager.creatBscPair(token0, token1, pair, pairLength, tokenConfig.getChainIdBsc());
                 
                 String blockHash = logsLog.getBlockHash();
                 EthBlock.Block bscBlock = erc20BSCWalletHandleService.getBlockByHash(blockHash);

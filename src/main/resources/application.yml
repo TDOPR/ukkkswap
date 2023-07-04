@@ -51,17 +51,17 @@ logging:
 #基础token
 token:
 #  #ETH Router地址
-#  routerEthAddress: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'
+  routerEthAddress: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
   #Goerli Router地址
-  routerEthAddress: '0x6D8Da1792E6EC1F7B5F2152aD5668131e3FBD15E'
+#  routerEthAddress: '0x6D8Da1792E6EC1F7B5F2152aD5668131e3FBD15E'
   #Bsctestnet Router地址
-  routerBscAddress: '0x6D8Da1792E6EC1F7B5F2152aD5668131e3FBD15E'
+#  routerBscAddress: '0x6D8Da1792E6EC1F7B5F2152aD5668131e3FBD15E'
 #  #BSC Router地址
-#  routerBscAddress: '0x10ED43C718714eb63d5aA57B78B54704E256024E'
+  routerBscAddress: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73'
   #web3ETH服务地址
-  web3EthServiceUrl: https://ethereum-goerli.publicnode.com
+  web3EthServiceUrl: https://eth.llamarpc.com
   #web3BSC服务地址
-  web3BscServiceUrl: https://bsc-testnet.publicnode.com
+  web3BscServiceUrl: https://endpoints.omniatech.io/v1/bsc/mainnet/public
   #以太坊链id
   chainIdEth: 1
   #BSC链id
