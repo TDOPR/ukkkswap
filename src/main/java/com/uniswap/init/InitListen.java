@@ -40,6 +40,6 @@ public class InitListen implements CommandLineRunner {
         List<PairEntity> tokenList = pairService.list();
         List<PairBscEntity> tokenBscList = pairBscService.list();
         GraphDataMapUtils.buildDigraph(tokenList);
-        GraphDataMapUtils.buildBscDigraph(tokenBscList);
+//        GraphDataMapUtils.buildBscDigraph(tokenBscList);
     }
 }

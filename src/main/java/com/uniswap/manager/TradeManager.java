@@ -14,6 +14,7 @@ import com.uniswap.utils.GraphDataMapUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigInteger;
@@ -38,6 +39,7 @@ public class TradeManager {
     @Resource
     private TokenConfig tokenConfig;
 
+    @Transactional
     public void creatPair(String token0, String token1, String pair, BigInteger pairLength, Integer chainId) {
         PairEntity pairEntity = PairEntity.builder()
                 .token0(token0)
